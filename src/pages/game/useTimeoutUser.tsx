@@ -8,6 +8,7 @@ export interface TimeoutUserOptions {
   moderatorId: string;
   userId: string;
   duration: number;
+  reason: string;
 }
 
 const useTimeoutUser = () => {
@@ -21,6 +22,7 @@ const useTimeoutUser = () => {
       moderatorId,
       userId,
       duration,
+      reason,
     }: TimeoutUserOptions) => {
       setLoading(true);
       setError(null);
@@ -30,6 +32,7 @@ const useTimeoutUser = () => {
           moderatorId,
           userId,
           duration,
+          reason,
         });
 
         const url = new URL("https://api.twitch.tv/helix/moderation/bans");
@@ -46,7 +49,7 @@ const useTimeoutUser = () => {
             data: {
               user_id: userId,
               duration: duration < 1 ? 1 : duration,
-              reason: "Numerica Rothio Skin - Timeout",
+              reason: reason || "Numerica Rothio Skin - Timeout",
             },
           }),
         });

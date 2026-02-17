@@ -12,6 +12,10 @@ export interface ConfigState {
   setTimeoutMultiplier: (timeoutMultiplier: number) => void;
   timeoutBase: number;
   setTimeoutBase: (timeoutBase: number) => void;
+  timeoutReason: string;
+  setTimeoutReason: (timeoutReason: string) => void;
+  banMods: boolean;
+  setBanMods: (setBanMods: boolean) => void;
 }
 
 const useConfig = create(
@@ -27,8 +31,12 @@ const useConfig = create(
       setTimeoutMultiplier: (timeoutMultiplier) => set({ timeoutMultiplier }),
       timeoutBase: 0,
       setTimeoutBase: (timeoutBase) => set({ timeoutBase }),
+      timeoutReason: "Numerica Rothio Skin - Timeout",
+      setTimeoutReason: (timeoutReason) => set({ timeoutReason }),
+      banMods: false,
+      setBanMods: (banMods) => set({ banMods }),
     }),
-    { name: "numerica-config", version: 2 }
+    { name: "numerica-config", version: 3 }
   )
 );
 

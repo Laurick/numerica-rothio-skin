@@ -24,6 +24,8 @@ export interface GameState {
       >
     >
   ) => void;
+
+  resetGame: () => void;
 }
 
 const useGameState = create(
@@ -38,6 +40,7 @@ const useGameState = create(
       setGameState: (action) => {
         set(action);
       },
+      resetGame: () => set({ maxScore: 0, maxScoreUser: "", number: 0, user: "", status: GameStatus.IDLE }),
     }),
     { name: "numerica", version: 1 }
   )

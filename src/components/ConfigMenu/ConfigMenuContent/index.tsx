@@ -1,6 +1,7 @@
 import useConfig from "../../../providers/ConfigContext";
 import { useTwitchAuth } from "../../../providers/TwitchAuthProvider";
 import AudioIcon from "../../icons/AudioIcon";
+import useGameState from "../../../providers/GameContext";
 
 export default function ConfigMenuContent() {
   const {
@@ -14,9 +15,13 @@ export default function ConfigMenuContent() {
     setTimeoutMultiplier,
     timeoutBase,
     setTimeoutBase,
+    timeoutReason,
+    setTimeoutReason,
+    banMods,
+    setBanMods,
   } = useConfig();
   const { isAuthenticated, goToLogin, logOut } = useTwitchAuth();
-
+  const resetGame = useGameState((state) => state.resetGame);
   return (
     <div className="flex flex-col gap-2">
       <fieldset>
@@ -117,9 +122,44 @@ export default function ConfigMenuContent() {
                   }}
                 />
               </fieldset>
+              <fieldset title="Customize your ban message">
+                <legend>Timeout Reason</legend>
+                <input
+                  type="text"
+                  name="timeout-reason"
+                  className="block w-full rounded-md border-0 py-1 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary text-2xl sm:leading-6"
+                  placeholder="Numerica Rothio Skin - Timeout"
+                  value={timeoutReason}
+                  onChange={(e) => setTimeoutReason(e.target.value)}
+                />
+              </fieldset>
+              <fieldset title="Enable o dissable moderator ban">
+                <legend>Ban Mods</legend>
+                <input
+                  className="accent-primary"
+                  id="enable-timeout"
+                  type="checkbox"
+                  checked={banMods}
+                  onChange={(e) => setBanMods(e.target.checked)}
+                />
+              </fieldset>
+              <fieldset title="Are you brave enough? >:)">
+                <legend>Super secret setting</legend>
+                <input
+                  className="accent-primary"
+                  id="enable-timeout"
+                  type="checkbox"
+                />
+              </fieldset>
             </>
           )}
 
+          <button
+            className="w-full py-2 px-4 bg-secondary text-black rounded-2xl"
+            onClick={resetGame}
+          >
+            Clear data & reset
+          </button>
           <button
             className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
             onClick={logOut}

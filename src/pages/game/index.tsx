@@ -28,6 +28,8 @@ export default function GamePage() {
   const enableTimeout = useConfig((config) => config.enableTimeout);
   const timeoutBase = useConfig((config) => config.timeoutBase);
   const timeoutMultiplier = useConfig((config) => config.timeoutMultiplier);
+  const timeoutReason = useConfig((config) => config.timeoutReason);
+  const banMods = useConfig((config) => config.banMods);
   const { status, number, user, maxScore, maxScoreUser, setGameState } =
     useGameState();
   const [twitchClient, setTwitchClient] = useState<tmi.Client | null>(null);
@@ -113,7 +115,7 @@ export default function GamePage() {
             enableTimeout &&
             (timeoutMultiplier || timeoutBase) &&
             channelUser &&
-            !isMod &&
+            (banMods || !isMod) &&
             prev.number > 0
           ) {
             timeoutUser({
@@ -121,6 +123,7 @@ export default function GamePage() {
               moderatorId: channelUser.id,
               userId: userId,
               duration: timeoutBase + prev.number * timeoutMultiplier,
+              reason: timeoutReason,
             });
           }
           return {
