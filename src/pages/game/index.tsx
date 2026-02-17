@@ -94,7 +94,9 @@ export default function GamePage() {
       const isMod = Boolean(tags.mod);
       if (!userId || !newUser) return;
 
-      const newNumber = Number(message.replace(/[^ -~]+/, ""));
+      const newNumber = Number(
+        message.replace(/[^\D\d]+$/, "").replace(/^[^\D\d]+/, "")
+      );
       const isFiniteNumber = isFinite(newNumber);
       const isIntegerNumber = newNumber % 1 === 0;
       const isPositiveNumber = newNumber > 0;
