@@ -2,6 +2,7 @@ import useConfig from "../../../providers/ConfigContext";
 import { useTwitchAuth } from "../../../providers/TwitchAuthProvider";
 import AudioIcon from "../../icons/AudioIcon";
 import useGameState from "../../../providers/GameContext";
+import { useState } from "react";
 
 export default function ConfigMenuContent() {
   const {
@@ -22,6 +23,8 @@ export default function ConfigMenuContent() {
   } = useConfig();
   const { isAuthenticated, goToLogin, logOut } = useTwitchAuth();
   const resetGame = useGameState((state) => state.resetGame);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   return (
     <div className="flex flex-col gap-2">
       <fieldset>
@@ -44,10 +47,10 @@ export default function ConfigMenuContent() {
               volume === 0
                 ? "mute"
                 : volume < 0.25
-                ? "low"
-                : volume < 0.75
-                ? "medium"
-                : "high"
+                  ? "low"
+                  : volume < 0.75
+                    ? "medium"
+                    : "high"
             }
           />
           <input
@@ -156,17 +159,69 @@ export default function ConfigMenuContent() {
 
           <button
             className="w-full py-2 px-4 bg-secondary text-black rounded-2xl"
-            onClick={resetGame}
+            onClick={() => setShowClearConfirm(true)}
           >
             Clear data & reset
           </button>
           <button
             className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
-            onClick={logOut}
+            onClick={() => setShowLogoutConfirm(true)}
           >
             LogOut
           </button>
         </>
+      )}
+      {showClearConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-slate-700 rounded-2xl p-6 flex flex-col gap-4 max-w-sm mx-4">
+            <p className="text-white text-center text-lg">
+              Are you sure you want to clear all data?
+            </p>
+            <div className="flex gap-2">
+              <button
+                className="flex-1 py-2 px-4 bg-slate-500 text-white rounded-2xl"
+                onClick={() => setShowClearConfirm(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="flex-1 py-2 px-4 bg-secondary text-black rounded-2xl"
+                onClick={() => {
+                  resetGame();
+                  setShowClearConfirm(false);
+                }}
+              >
+                Yes, please
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-slate-700 rounded-2xl p-6 flex flex-col gap-4 max-w-sm mx-4">
+            <p className="text-white text-center text-lg">
+              Are you sure you want to logout?
+            </p>
+            <div className="flex gap-2">
+              <button
+                className="flex-1 py-2 px-4 bg-slate-500 text-white rounded-2xl"
+                onClick={() => setShowLogoutConfirm(false)}
+              >
+                Nope
+              </button>
+              <button
+                className="flex-1 py-2 px-4 bg-secondary text-black rounded-2xl"
+                onClick={() => {
+                  logOut();
+                  setShowLogoutConfirm(false);
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
