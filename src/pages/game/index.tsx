@@ -5,10 +5,12 @@ import lerp from "../../utils/lerp";
 import { twMerge } from "tailwind-merge";
 import ConfigMenu from "../../components/ConfigMenu";
 import useGameState, { GameStatus } from "../../providers/GameContext";
+import useStats from "../../providers/StatsContext";
 import useConfig from "../../providers/ConfigContext";
 import useTimeoutUser from "./useTimeoutUser";
 import useGetUser from "./useGetUser";
 import { useTwitchAuth } from "../../providers/TwitchAuthProvider";
+import StatsMenu from "../../components/StatsMenu";
 
 const INITIAL_BUBBLE_ANIMATION_DURATION = 10000;
 const INITIAL_NUMBER_CONCURRENT_BUBBLES = 4;
@@ -32,6 +34,7 @@ export default function GamePage() {
   const banMods = useConfig((config) => config.banMods);
   const { status, number, user, maxScore, maxScoreUser, setGameState } =
     useGameState();
+  const { setStatsMaxScore, setStatsMaxTimeout, setStatsNumberSubmitedBy, setStatsTimeoutedUser } = useStats();
   const [twitchClient, setTwitchClient] = useState<tmi.Client | null>(null);
   const [timeoutUser] = useTimeoutUser();
   const [getUser, { data: channelUser }] = useGetUser();
@@ -118,11 +121,14 @@ export default function GamePage() {
             (banMods || !isMod) &&
             prev.number > 0
           ) {
+            const timeTimeout = timeoutBase + prev.number * timeoutMultiplier
+            setStatsTimeoutedUser(newUser);
+            setStatsMaxTimeout(timeTimeout, newUser);
             timeoutUser({
               broadcasterId: channelUser.id,
               moderatorId: channelUser.id,
               userId: userId,
-              duration: timeoutBase + prev.number * timeoutMultiplier,
+              duration: timeTimeout,
               reason: timeoutReason,
             });
           }
@@ -134,6 +140,8 @@ export default function GamePage() {
         }
 
         const isNewMaxScore = newNumber > prev.maxScore;
+        setStatsNumberSubmitedBy(newUser);
+        setStatsMaxScore(newNumber, newUser);
         if (!isNewMaxScore) {
           return {
             status: GameStatus.STARTED,
@@ -296,6 +304,7 @@ export default function GamePage() {
         </p>
       )}
 
+      <StatsMenu />
       <ConfigMenu />
     </div>
   );
