@@ -19,7 +19,7 @@ export default function StatsMenu() {
             </button>
             <div
                 className={twMerge(
-                    "fixed bottom-0 right-0 bg-primary-dark w-screen h-screen z-20 transition-transform duration-200 flex justify-center items-center font-black",
+                    "fixed bottom-0 right-0 bg-primary-dark w-screen h-screen z-20 transition-transform duration-200 flex justify-center items-start overflow-y-auto font-black",
                     open
                         ? "translate-y-0 pointer-events-auto"
                         : "translate-y-full pointer-events-none"
@@ -31,7 +31,9 @@ export default function StatsMenu() {
                 >
                     <CloseIcon />
                 </button>
-                <StatsMenuContent />
+                <div className="py-12">
+                    <StatsMenuContent />
+                </div>
             </div>
         </>
     );
