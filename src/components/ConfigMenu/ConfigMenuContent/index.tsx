@@ -20,6 +20,8 @@ export default function ConfigMenuContent() {
     setTimeoutReason,
     banMods,
     setBanMods,
+    modsTimeoutMultiplier,
+    setModsTimeoutMultiplier,
   } = useConfig();
   const { isAuthenticated, goToLogin, logOut } = useTwitchAuth();
   const resetGame = useGameState((state) => state.resetGame);
@@ -117,7 +119,7 @@ export default function ConfigMenuContent() {
                   onChange={(e) => {
                     const number = Number(e.target.value);
                     const isFinite = Number.isFinite(number);
-                    const isNotNegative = number >= 0;
+                    const isNotNegative = number >= 1;
                     const isInteger = Number.isInteger(number);
                     if (isFinite && isNotNegative && isInteger) {
                       setTimeoutBase(number);
@@ -146,14 +148,29 @@ export default function ConfigMenuContent() {
                   onChange={(e) => setBanMods(e.target.checked)}
                 />
               </fieldset>
-              <fieldset title="Are you brave enough? >:)">
-                <legend>Super secret setting</legend>
-                <input
-                  className="accent-primary"
-                  id="enable-timeout"
-                  type="checkbox"
-                />
-              </fieldset>
+              {banMods && (
+                <>
+                  <fieldset>
+                    <legend>Mods Timeout Multiplier</legend>
+                    <input
+                      type="number"
+                      name="timeout-multiplier"
+                      className="block w-full rounded-md border-0 py-1 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary text-2xl sm:leading-6"
+                      placeholder="Mods Timeout Multiplier"
+                      value={modsTimeoutMultiplier}
+                      onChange={(e) => {
+                        const number = Number(e.target.value);
+                        const isFinite = Number.isFinite(number);
+                        const isNotNegative = number >= 1;
+                        const isInteger = Number.isInteger(number);
+                        if (isFinite && isNotNegative && isInteger) {
+                          setModsTimeoutMultiplier(number);
+                        }
+                      }}
+                    />
+                  </fieldset>
+                </>
+              )}
             </>
           )}
 

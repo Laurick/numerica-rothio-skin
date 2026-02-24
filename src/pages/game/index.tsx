@@ -32,6 +32,7 @@ export default function GamePage() {
   const timeoutMultiplier = useConfig((config) => config.timeoutMultiplier);
   const timeoutReason = useConfig((config) => config.timeoutReason);
   const banMods = useConfig((config) => config.banMods);
+  const modsTimeoutMultiplier = useConfig((config) => config.modsTimeoutMultiplier);
   const { status, number, user, maxScore, maxScoreUser, setGameState } =
     useGameState();
   const { setStatsMaxScore, setStatsMaxTimeout, setStatsNumberSubmitedBy, setStatsTimeoutedUser } = useStats();
@@ -121,7 +122,10 @@ export default function GamePage() {
             (banMods || !isMod) &&
             prev.number > 0
           ) {
-            const timeTimeout = timeoutBase + prev.number * timeoutMultiplier
+            let timeTimeout = timeoutBase + prev.number * timeoutMultiplier
+            if (isMod) {
+              timeTimeout *= modsTimeoutMultiplier
+            }
             setStatsTimeoutedUser(newUser);
             setStatsMaxTimeout(timeTimeout, newUser);
             timeoutUser({

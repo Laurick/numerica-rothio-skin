@@ -27,14 +27,6 @@ const useTimeoutUser = () => {
       setLoading(true);
       setError(null);
       try {
-        console.log({
-          broadcasterId,
-          moderatorId,
-          userId,
-          duration,
-          reason,
-        });
-
         const url = new URL("https://api.twitch.tv/helix/moderation/bans");
         url.searchParams.append("broadcaster_id", broadcasterId);
         url.searchParams.append("moderator_id", moderatorId);

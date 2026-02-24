@@ -15,7 +15,9 @@ export interface ConfigState {
   timeoutReason: string;
   setTimeoutReason: (timeoutReason: string) => void;
   banMods: boolean;
-  setBanMods: (setBanMods: boolean) => void;
+  setBanMods: (banMods: boolean) => void;
+  modsTimeoutMultiplier: number;
+  setModsTimeoutMultiplier: (modsTimeoutMultiplier: number) => void;
 }
 
 const useConfig = create(
@@ -35,6 +37,8 @@ const useConfig = create(
       setTimeoutReason: (timeoutReason) => set({ timeoutReason }),
       banMods: false,
       setBanMods: (banMods) => set({ banMods }),
+      modsTimeoutMultiplier: 5,
+      setModsTimeoutMultiplier: (modsTimeoutMultiplier) => set({ modsTimeoutMultiplier }),
     }),
     { name: "numerica-config", version: 3 }
   )
