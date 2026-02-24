@@ -26,5 +26,7 @@ This version has these new features from the metalito's version:
 - You can wipe the gamestate and reset the game anytime
 - You can custom the timeout message
 - Mods could be punished via setting
-- Super secret setting, only if you know what you are doing.
+- Another multiplier is also applied to mods
+- Write the reason after ban as user
 - Statistics
+- Fixed vertical content with scrolls
