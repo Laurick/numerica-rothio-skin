@@ -18,6 +18,8 @@ export interface ConfigState {
   setBanMods: (banMods: boolean) => void;
   modsTimeoutMultiplier: number;
   setModsTimeoutMultiplier: (modsTimeoutMultiplier: number) => void;
+  sendMessage: boolean;
+  setSendMessage: (sendMessage: boolean) => void;
 }
 
 const useConfig = create(
@@ -39,6 +41,8 @@ const useConfig = create(
       setBanMods: (banMods) => set({ banMods }),
       modsTimeoutMultiplier: 5,
       setModsTimeoutMultiplier: (modsTimeoutMultiplier) => set({ modsTimeoutMultiplier }),
+      sendMessage: false,
+      setSendMessage: (sendMessage) => set({ sendMessage }),
     }),
     { name: "numerica-config", version: 3 }
   )

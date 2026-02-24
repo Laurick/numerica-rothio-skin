@@ -22,6 +22,8 @@ export default function ConfigMenuContent() {
     setBanMods,
     modsTimeoutMultiplier,
     setModsTimeoutMultiplier,
+    sendMessage,
+    setSendMessage,
   } = useConfig();
   const { isAuthenticated, goToLogin, logOut } = useTwitchAuth();
   const resetGame = useGameState((state) => state.resetGame);
@@ -136,6 +138,16 @@ export default function ConfigMenuContent() {
                   placeholder="Numerica Rothio Skin - Timeout"
                   value={timeoutReason}
                   onChange={(e) => setTimeoutReason(e.target.value)}
+                />
+              </fieldset>
+              <fieldset title="Enable o dissable send message as user">
+                <legend>Send message after ban</legend>
+                <input
+                  className="accent-primary"
+                  id="enable-timeout"
+                  type="checkbox"
+                  checked={sendMessage}
+                  onChange={(e) => setSendMessage(e.target.checked)}
                 />
               </fieldset>
               <fieldset title="Enable o dissable moderator ban">

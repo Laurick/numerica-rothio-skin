@@ -18,7 +18,7 @@ ReactDOM.createRoot(rootElement).render(
     <HashRouter>
       <TwitchAuthProvider
         clientId={VITE_TWITCH_CLIENT_ID}
-        scopes={["moderator:manage:banned_users"]}
+        scopes={["moderator:manage:banned_users", "user:write:chat"]}
       >
         <App />
       </TwitchAuthProvider>

@@ -8,6 +8,7 @@ import useGameState, { GameStatus } from "../../providers/GameContext";
 import useStats from "../../providers/StatsContext";
 import useConfig from "../../providers/ConfigContext";
 import useTimeoutUser from "./useTimeoutUser";
+import useMessageUser from "./useMessageUser";
 import useGetUser from "./useGetUser";
 import { useTwitchAuth } from "../../providers/TwitchAuthProvider";
 import StatsMenu from "../../components/StatsMenu";
@@ -32,12 +33,14 @@ export default function GamePage() {
   const timeoutMultiplier = useConfig((config) => config.timeoutMultiplier);
   const timeoutReason = useConfig((config) => config.timeoutReason);
   const banMods = useConfig((config) => config.banMods);
+  const sendMessage = useConfig((config) => config.sendMessage);
   const modsTimeoutMultiplier = useConfig((config) => config.modsTimeoutMultiplier);
   const { status, number, user, maxScore, maxScoreUser, setGameState } =
     useGameState();
   const { setStatsMaxScore, setStatsMaxTimeout, setStatsNumberSubmitedBy, setStatsTimeoutedUser } = useStats();
   const [twitchClient, setTwitchClient] = useState<tmi.Client | null>(null);
   const [timeoutUser] = useTimeoutUser();
+  const [messageUser] = useMessageUser();
   const [getUser, { data: channelUser }] = useGetUser();
   const bubbleContainer = useRef<HTMLDivElement>(null);
   const bubbleAnimation = useRef<{
@@ -135,6 +138,9 @@ export default function GamePage() {
               duration: timeTimeout,
               reason: timeoutReason,
             });
+            if (sendMessage) {
+              messageUser({ broadcasterId: channelUser.id, senderId: channelUser.id, message: timeoutReason });
+            }
           }
           return {
             status: prev.number === 0 ? GameStatus.IDLE : GameStatus.GAME_OVER,
@@ -166,6 +172,7 @@ export default function GamePage() {
     [
       setGameState,
       timeoutUser,
+      messageUser,
       isAuthenticated,
       enableTimeout,
       timeoutMultiplier,
