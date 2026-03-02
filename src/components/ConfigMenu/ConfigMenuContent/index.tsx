@@ -201,7 +201,8 @@ export default function ConfigMenuContent() {
         </>
       )}
       {showClearConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          style={{ position: 'sticky', top: 0, height: '100vh' }}>
           <div className="bg-slate-700 rounded-2xl p-6 flex flex-col gap-4 max-w-sm mx-4">
             <p className="text-white text-center text-lg">
               Are you sure you want to clear all data?
@@ -227,7 +228,8 @@ export default function ConfigMenuContent() {
         </div>
       )}
       {showLogoutConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          style={{ position: 'sticky', top: 0, height: '100vh' }}>
           <div className="bg-slate-700 rounded-2xl p-6 flex flex-col gap-4 max-w-sm mx-4">
             <p className="text-white text-center text-lg">
               Are you sure you want to logout?

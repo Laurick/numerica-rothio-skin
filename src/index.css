@@ -37,8 +37,7 @@
     position: relative;
     width: 60px;
     height: 60px;
-    animation: 2s linear 0s infinite normal none running
-      react-spinners-DotLoader-rotate;
+    animation: 2s linear 0s infinite normal none running react-spinners-DotLoader-rotate;
   }
 
   .loading::after {
@@ -50,8 +49,7 @@
     width: 30px;
     background-color: currentColor;
     border-radius: 100%;
-    animation: 2s linear 0s infinite normal none running
-      react-spinners-DotLoader-bounce;
+    animation: 2s linear 0s infinite normal none running react-spinners-DotLoader-bounce;
   }
 
   .loading::before {
@@ -63,8 +61,7 @@
     width: 30px;
     background-color: currentColor;
     border-radius: 100%;
-    animation: 2s linear 1s infinite normal none running
-      react-spinners-DotLoader-bounce;
+    animation: 2s linear 1s infinite normal none running react-spinners-DotLoader-bounce;
   }
 
   @keyframes react-spinners-DotLoader-rotate {
@@ -74,12 +71,34 @@
   }
 
   @keyframes react-spinners-DotLoader-bounce {
+
     0%,
     100% {
       transform: scale(0);
     }
+
     50% {
       transform: scale(1);
     }
   }
+}
+
+/* Ancho de la barra */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Fondo de la barra */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* El "thumb" (la parte que se arrastra) */
+::-webkit-scrollbar-thumb {
+  background: #ff666f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff888f;
 }

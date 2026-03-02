@@ -21,7 +21,7 @@ export default function StatsMenuContent() {
                 <tbody>
                     {stats.map((stat) => (
                         <tr key={stat.name} className="border-b border-primary/30">
-                            <td className="py-2 px-4 text-slate-400">{stat.name}</td>
+                            <td className="py-2 px-4 text-white">{stat.name}</td>
                             <td className="py-2 px-4 text-white text-right">{stat.value}</td>
                         </tr>
                     ))}
