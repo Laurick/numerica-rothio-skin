@@ -187,7 +187,7 @@ export default function ConfigMenuContent() {
           )}
 
           <button
-            className="w-full py-2 px-4 bg-secondary text-black rounded-2xl"
+            className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
             onClick={() => setShowClearConfirm(true)}
           >
             Clear data & reset
@@ -196,7 +196,7 @@ export default function ConfigMenuContent() {
             className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
             onClick={() => setShowLogoutConfirm(true)}
           >
-            LogOut
+            Logout
           </button>
         </>
       )}
@@ -209,13 +209,13 @@ export default function ConfigMenuContent() {
             </p>
             <div className="flex gap-2">
               <button
-                className="flex-1 py-2 px-4 bg-slate-500 text-white rounded-2xl"
+                className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
                 onClick={() => setShowClearConfirm(false)}
               >
                 Cancel
               </button>
               <button
-                className="flex-1 py-2 px-4 bg-secondary text-black rounded-2xl"
+                className="w-full py-2 px-4 bg-primary text-white rounded-2xl"
                 onClick={() => {
                   resetGame();
                   setShowClearConfirm(false);
@@ -242,7 +242,7 @@ export default function ConfigMenuContent() {
                 Nope
               </button>
               <button
-                className="flex-1 py-2 px-4 bg-secondary text-black rounded-2xl"
+                className="flex-1 py-2 px-4 bg-slate-500 text-white rounded-2xl"
                 onClick={() => {
                   logOut();
                   setShowLogoutConfirm(false);
